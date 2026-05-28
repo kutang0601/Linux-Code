@@ -15,12 +15,13 @@
 #include <error.h>
 #include <time.h>
 
-#define MAX_FILES 1024
+#define MAX_SIZE 100000
+#define MAX_PATH 100000
 
 typedef struct FileInfor
 {
-    char name[MAX_FILES];
-    char path[MAX_FILES];
+    char name[256];
+    char path[MAX_PATH];
     struct stat st;
 }FileInfor;
 
@@ -33,11 +34,12 @@ typedef struct option
     int Is_t;       //按修改时间排序
     int Is_S;       //按文件大小排序
     int Is_r;       //反向排序
+    int Is_s;       //显示文件占用的磁盘块
 }option;
 
 void Init_OPT(option* opt);
 
-void analysis_options(int argc, char* argv[], option* opt);
+int analysis_options(char dirname[][1024],  int argc, char* argv[], option* opt);
 
 void list_dir(char* dirname, option* opt);
 

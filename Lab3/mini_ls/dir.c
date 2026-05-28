@@ -7,7 +7,7 @@ int collect_files(char* dirname, FileInfor files[], int max_count, option* opt)
     if (dir == NULL)
     {
         perror("Open Fail!");
-        exit(1);
+        return -1;
     }
 
     int count = 0;
@@ -22,9 +22,12 @@ int collect_files(char* dirname, FileInfor files[], int max_count, option* opt)
 
         strcpy(files[count].name, entry->d_name);
 
-        sprintf(files[count].path, "%s/%s", dirname, entry->d_name);
+        snprintf(files[count].path, MAX_PATH, "%s/%s", dirname, entry->d_name);
 
-        stat(files[count].path, &files[count].st);
+        if (lstat(files[count].path, &files[count].st) == -1)
+        {
+            continue;
+        }
 
         count++;
 

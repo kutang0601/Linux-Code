@@ -11,8 +11,10 @@ void Init_OPT(option* opt)
     opt->Is_r = 0;
 }
 
-void analysis_options(int argc, char* argv[], option* opt)
+int analysis_options(char dirname[][1024], int argc, char* argv[], option* opt)
 {
+    int count = 0;
+
     for (int a = 1; a < argc; a++)
     {
         if (argv[a][0] == '-')
@@ -42,10 +44,30 @@ void analysis_options(int argc, char* argv[], option* opt)
                     case 'r':
                         opt->Is_r = 1;
                         break;
+                    case 's':   
+                        opt->Is_s = 1;
+                        break;
                     default:
                         break;    
                 }
             }
         }
+        else
+        {
+            int n1 = 0;
+            int n2 = 0;
+            while (argv[a][n1] != '\0')
+            {
+                dirname[count][n2] = argv[a][n1];
+                n1++;
+                n2++;
+            }
+            count++;
+        }
     }
+
+    if (count > 1)
+        return count;
+
+    return 0;
 }
