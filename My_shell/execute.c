@@ -90,10 +90,10 @@ void execute(pipeST* pipe_st)
                     dup2(fd_out, STDOUT_FILENO);
                     close(fd_out);
                 }
-                else
-                {
-                    dup2(fds[b][1], STDOUT_FILENO);
-                }
+            }
+            else
+            {
+                dup2(fds[b][1], STDOUT_FILENO);
             }
 
             for (int c = 0; c < count - 1; c++)

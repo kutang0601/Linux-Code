@@ -31,7 +31,7 @@ int built(commond* com)
                 return 1;
             }
             will_path = old_path;
-            printf("%s", old_path);
+            printf("%s\n", old_path);
         }
 
         if (chdir(will_path))
